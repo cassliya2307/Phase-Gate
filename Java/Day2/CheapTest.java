@@ -6,7 +6,7 @@ public class CheapTest{
 	
 	Cheap cheap = new Cheap();
 
-	int answer = cheap.numberOfYearsTillFree();
+	int answer = cheap.numberOfYearsTillFree(1);
 
 	assertEquals(answer, 12.5);
 
@@ -18,7 +18,7 @@ public class CheapTest{
 
 	Cheap cheap = new Cheap();
 
-	int answer = cheap.numberOfYearsTillFree();
+	int answer = cheap.numberOfYearsTillFree(2);
 
 	
 	assertEquals(answer, 25.0);

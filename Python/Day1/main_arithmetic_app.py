@@ -52,7 +52,7 @@ while loop:
 						break
 						if answer == solution_2:
 							score_list.append(answer)
-
+				
 					next_2 = input("Get next question(yes): ").lower()
 					match next_2:
 						case "yes":
@@ -64,6 +64,8 @@ while loop:
 							if answer == solution_3:
 								score_list.append(answer)
 
+						
+
 							while answer != solution_3:
 								third_solution = f"{third[0]} - {third[1]}"
 								print("3. What is ",third_solution) 
@@ -72,7 +74,7 @@ while loop:
 								break
 								if answer == solution_3:
 									score_list.append(answer)
-
+				
 							next_3 = input("Get next question(yes): ").lower()
 							match next_3:
 								case "yes":
@@ -83,7 +85,7 @@ while loop:
 									solution_4 = fourth[0] - fourth[1]
 									if answer == solution_4:
 										score_list.append(answer)
-
+								
 									while answer != solution_4:
 										fourth_solution = f"{fourth[0]} - {fourth[1]}"
 										print("4. What is ",fourth_solution) 
@@ -92,7 +94,7 @@ while loop:
 										break
 										if answer == solution_4:
 											score_list.append(answer)
-
+				
 									next_4 = input("Get next question(yes): ").lower()
 									match next_4:
 										case "yes":
@@ -104,6 +106,7 @@ while loop:
 											if answer == solution_5:
 												score_list.append(answer)
 
+								
 											while answer != solution_5:
 												fourth_solution = f"{fifth[0]} - {fifth[1]}"
 												print("5. What is ",fifth_solution) 
@@ -124,7 +127,7 @@ while loop:
 													solution_6 = sixth[0] - sixth[1]
 													if answer == solution_6	:
 														score_list.append(answer)
-
+												
 													while answer != solution_6:
 														sixth_solution = f"{sixth[0]} - {sixth[1]}"
 														print("6. What is ",sixth_solution) 
@@ -145,6 +148,7 @@ while loop:
 															solution_7 = seventh[0] - seventh[1]
 															if answer == solution_7:
 																score_list.append(answer)
+														#case _:print("Questions not answered completely, start all over")
 
 															while answer != solution_7:
 																seventh_solution = f"{seventh[0]} - {seventh[1]}"
@@ -154,9 +158,7 @@ while loop:
 																break
 																if answer == solution_7:
 																	score_list.append(answer)
-
-
-	
+																
 															next_7 = input("Get next question(yes): ").lower()
 															match next_7:
 																case "yes":
@@ -175,10 +177,8 @@ while loop:
 																		solution_8 = eight[0] - eight[1]
 																		break
 																		if answer == solution_8:
-																			score_list.append(answer)
-
-																	
-
+																			score_list.append(answer)																		
+																case _:print("Questions not answered completely, start all over")													
 
 		case 2:
 			print("Your total score is:", total_mark(score_list), "out of 8")
