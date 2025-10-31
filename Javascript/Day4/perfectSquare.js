@@ -25,5 +25,5 @@ return new_list;
 }
 
 
-numbers = [4, 5, 25, 36, 100];
+numbers = [4, 5, 25, 36, 100 , 10];
 console.log(perfectSquares(numbers));

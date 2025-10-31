@@ -2,11 +2,11 @@
 function isPalindrome(words){
 let new_list = [];
 for(let count = 0; count < words.length; count++){
-let palindrome = "";
+let reverse = "";
 	for(let index = 0; index < words[count].length; index++){
-	palindrome = words[count].charAt(index) + palindrome;
+	reverse = words[count].charAt(index) +reverse;
 	
-	if(words[count] == palindrome){
+	if(words[count] == reverse){
 
 	new_list[count] = true;
 

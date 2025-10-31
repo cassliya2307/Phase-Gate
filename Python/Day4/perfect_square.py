@@ -28,5 +28,5 @@ def get_perfect_square(numbers):
 	return new_list
 
 
-numbers = [1, 4 , 9, 49 , 8]
+numbers = [1, 4 , 9, 49 , 8 , 100]
 print(get_perfect_square(numbers))
