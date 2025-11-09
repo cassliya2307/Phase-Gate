@@ -1,140 +1,131 @@
-from student_grade_function import*
+from student_grade_functions import*
+name_list = []
+subject_list = []
 
-student = int(input("Enter number of students: "))
-
-
-subjects = int(input("Enter number of subjects: "))
-
-final_grades = get_number_of_students(student)
-
-student_count = 0
-grade_count = 0
-for num in range(student):
-	grade_list = []
-	print("Enter subject grade for student ",student_count + 1)
-	grade_count = 0
+print("===========SC School Register===========")
+while True:
+	print(" 						")
+	students = input("Enter student name (or stop): ").upper()
+	if students == "STOP":
+		break
+	name_list.append(students)
 	
-	
-	for grades in range(subjects):
-		print("Enter grade of subject " , grade_count + 1)
-		grade = int(input("Enter grade of student: "))
-		while grade < 0 or grade > 100:
-			print("Grade cannot be outside range (1 - 100)")
-			grade = int(input("Enter grade of student: "))
-		grade_list.append(grade)
-		grade_count += 1
+while True:
+	print(" 						")
+	subjects = input("Enter subject names (or stop): ").upper()
+	if subjects == "STOP":
+		break
+	subject_list.append(subjects)
+grade_list = subject_score_space(subject_list)
+
+
+for score in range(len(subject_list)):
+	for num in range(len(name_list)):
+		scores = float(input(f"Enter {name_list[num]} score in {subject_list[score]}: "))
 		
-	final_grades[student_count] = grade_list
-	student_count += 1
-	                                                        
-add = calculate_the_sum_of_grades(final_grades)
-sum = calculate_the_sum_of_grades(final_grades)
-new_sum = calculate_the_sum_of_grades(final_grades)
-average = calculate_average_of_grades(calculate_the_sum_of_grades(final_grades), subjects)
+		while scores < 0 or scores > 100: 
+			print("Invalid Input score cannot be outside range (1 - 100)")
+			scores =  float(input(f"Enter {name_list[num]} score in {subject_list[score]}: "))
 
+		grade_list[score].append(scores)
+       
+
+
+
+
+
+individual_score_list = get_student_score_in_each_subject(grade_list)
+
+
+
+total_scores = get_subject_total_for_each_student(individual_score_list)
+
+average_scores = get_subject_average_for_each_student(individual_score_list)
+
+
+
+record = get_student_records(individual_score_list ,name_list, subject_list)
+
+sorted_list = sorted(record, key=lambda inner_list: inner_list[-1], reverse=True)
+
+
+
+print("Students" , end = "  ")
+for num in range(len(subject_list)):
+	print(subject_list[num], end = "     ")
+print("SUM" , end = "     ")
+print("AVERAGE" , end = "     ")
+print("POSITION" , end = "	")
+print(" ")
+
+for row in range(len(name_list)):
 	
-add.sort(reverse = True)
-for count in range(len(sum)):
-	sum[count] = add.index(sum[count]) + 1
+	for column in range(len(subject_list) + 3):
 	
-
-
-print("Students" , end = "   ")
-for num in range(1, subjects + 4):
-	if num <= subjects:
-		print(f"sub{num}" ,end = "     ")
-	elif num == subjects + 1:
-		print(f"Total" , end = "     ")
-	elif num == subjects + 2:
-		print(f"Average" , end = "	     ")
-	elif num == subjects + 3:
-		print(f"Position" , end = "	")
-
-for row in range(student):
+		print(sorted_list[row][column], end = "       ")
+	print(row + 1, end = "   ")
 	print(" ")
-	print(row + 1 , end = "	   ")
-	for column in range(subjects):	
-		print(final_grades[row][column],end = "         ")
-	print(new_sum[row] , end = "          ")
-	print(average[row] , end = " 	    ")
-	print(sum[row] , end = "        ")
-	print(" ")		
 
-print(" 				")
-same_subjects = get_subject_list(final_grades , subjects)
-same2 = get_subject_list(final_grades , subjects)
-highest = get_highest_in_each_subject(same_subjects)
-lowest = get_lowest_in_each_subjects(same_subjects)
-total = total_of_each_subject_score(same_subjects, subjects)
-average = get_average_of_each_subject(same_subjects, subjects)
-passed = get_total_pass(same_subjects, average)
-failed = get_total_fails(same_subjects,average)
 
-#print(passed)
+summary = input("Enter (1) to see the summary and (0) to exit:  ")
 
-print("SUBJECT SUMMARY")
-sub = []
-for num in range(subjects):
-	sub = same_subjects[num]
-	print(f"Subject{num + 1}" , end = " ")
-	print(f"Highest scoring student is: Student {sub.index(highest[num]) + 1 } scoring {highest[num]}")
-	print(f"Lowest scoring student is: Student {sub.index(lowest[num]) + 1 } scoring {lowest[num]}")
-	print(f"Total: ", total[num])
-	print(f"Average: " , average[num])
-	print(f"Fails: " , failed[num])
-	print(f"Passes: " , passed[num])
-	print(" 				")
+total_subject_scores = get_subject_total_for_each_student(grade_list)
+average_subject_scores = get_subject_average_for_each_student(grade_list)
+passes = get_number_of_passes(grade_list)
+fails = get_number_of_failes(grade_list)
+hardest_subject = get_hardest_subject(grade_list)
+easiest_subject = get_easiest_subject(grade_list)
+
+
+match summary:
+
+	case "1":
+		print("SUBJECT SUMMARY")
+		print(" ")
+		for inner_list in grade_list:
+        		inner_list.sort(reverse=True)
+
+
+
+		for row in range(len(subject_list)):
+			highest_list  = sorted(record, key=lambda inner_list: inner_list[row + 1], reverse=True)
+			print(f"The highest scoring student in {subject_list[row]} is {highest_list[0][0]}")
+			lowest_list = sorted(record, key=lambda inner_list: inner_list[row + 1])
+			print(f"The lowest scoring student in {subject_list[row]} is {lowest_list[0][0]}")
+			print(f"The total of scores in {subject_list[row]} is {total_subject_scores[row]}")
+			print(f"The average of scores in {subject_list[row]} is {average_subject_scores[row]}")
+			print(f"The number of passes in {subject_list[row]} is {passes[row]}")
+			print(f"The number of fails in {subject_list[row]} is {fails[row]}")
+			print(" ")
+
+
+		print("CLASS SUMMARY")
+		print(" ")
+		print(f"The hardest subject is subject {subject_list[hardest_subject[1]]}😒")
+		print(f"The easiest subject is subject {subject_list[easiest_subject[1]]}😉")
+		print(" ")
+		best_graduating = sorted(record, key=lambda inner_list: inner_list[-1], reverse=True)
+		worst_graduating = sorted(record, key=lambda inner_list: inner_list[-1])
+		print(f"The best graduating student is {best_graduating[0][0]} scoring a total of {best_graduating[0][-2]}")
+		print(f"The worst graduating student is {worst_graduating[0][0]} scoring a total of {worst_graduating[0][-2]}")
+		
+		total = 0
+		average = 0
+		for num in total_subject_scores:
+			total += num
+			average = f"{total / len(subject_list) :.1f}"
+		print(f"Class total : {total}")
 	
-	#sub.clear()
+		print(f"Class avearge : {average}")
 
+	case "0":
+		print("Thanks for using our register 😊💕")
 
+	case _:
+		print("Wrong Input!")
+		summary = input("Enter (1) to see the summary and (0) to exit:  ")
+		while summary != "1":
+			print("Wrong Input!")
+			summary = input("Enter (1) to see the summary and (0) to exit:  ")
 
-hardest = get_hardest_subject(failed)
-easiest = get_easiest_subject(passed)
-overall_total = get_highest_sum_of_subjects(highest)
-highest_total = calculate_the_highest_total(final_grades)
-lowest_total = calculate_the_lowest_total(final_grades)
-class_total_score = calculate_overall_class_total(new_sum)
-class_average_total = calculate_overall_class_total(average)
-
-
-print("The hardest subject is Subject " , hardest[1] , " with " , hardest[0], "failures")
-
-print("The easiest subject is Subject ", easiest[1], "with" ,easiest[0], "passes")
-print(" 				")
-
-
-sub2 = []
-for num in range(subjects):
-	sub2 = same2[num]
-	print(f"The overall Highest score is Student {sub2.index(highest[num]) + 1 } in Subject {num + 1} scoring {highest[num]}")
-	print(f"The overall Lowest  score is Student {sub2.index(lowest[num]) + 1 } in Subject {num + 1} scoring {lowest[num]}")
-	print(" 				")
-
-print("=====================================================================================================================================")
-print("CLASS SUMMARY")
-print("=====================================================================================================================================")
-
-print(" 				")
-
-
-print("=====================================================================================================================================")
-print(f"The Best Graduating student is Student {highest_total[1]} scoring a total of {highest_total[0]}")
-print("=====================================================================================================================================")
-print(" 				")
-
-
-
-print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-print(f"The Worst Graduating student is Student {lowest_total[1]} scoring a total of {lowest_total[0]}")
-print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-print(" 				")
-
-
-
-print("=====================================================================================================================================")
-print(f"Class Total {class_total_score}")
-print(f"Class Total Average {class_average_total}")
-print("=====================================================================================================================================")
-
-
+	
